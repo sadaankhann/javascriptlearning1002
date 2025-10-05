@@ -1,3 +1,3 @@
 Modern javascript engine like V8 uses both compiler and interpreter to improve performance.
 Datatype of undefined is undefined.
-typeof ka typeof hamesha string hoti hain.
+typeof of type is always string.

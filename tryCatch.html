@@ -1,0 +1,75 @@
+<!-- try/catch are used for error handling. 
+ 
+    Ways to Use try/catch
+
+    1. try{
+    
+    
+    }
+
+    catch{
+    
+    
+    }
+
+    finally{
+    
+    
+    }
+
+
+    //or
+
+
+    if(condition){
+    
+        throw SyntaxError("There is an error here!");
+    
+    }
+
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        let ask_User1 = prompt("Enter the first number: ");
+        let ask_User2 = prompt("Enter the second number: ");
+    
+        if (isNaN(ask_User1) || isNaN(ask_User2)) {
+            throw SyntaxError("Please enter numbers only!");
+        }
+        else {
+            let sum = parseInt(ask_User1) + parseInt(ask_User2);
+            console.log(sum);
+        }
+
+        //or
+
+        try{
+
+           let calculation = x/2;
+            console.log(calculation);
+
+        }
+
+        catch(error){
+
+            console.log("Something went wrong: " + error.message);
+
+        }
+
+
+    </script>
+</body>
+
+</html>

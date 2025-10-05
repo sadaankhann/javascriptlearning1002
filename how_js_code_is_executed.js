@@ -6,7 +6,7 @@
 
 // 1. Scanning(Memory Allocation)
 
-/* Jab first time javascript code run hota hain tu woh koi execution perform nhi karta hain, Balke woh first time execution mein sirf let, const and var ko talaash karta hain */
+/* In first iteration of our code execution, No actual execution is made, It only searches for template literals like let, const and var, And signed their values as undefined. */
 
 // For example hamare pass ye code hain:
 
@@ -15,30 +15,12 @@ let firstName = "Sadaan";
 let lastName = "Khan";
 const birthYear = 2006;
 
-// Humne jab first time program execution start ki tu isne let, const and var hoondna start kiya, Tu isse sabse pehle "let firstName" mila, Phir ye iss variable ko memory allocate hogi, Per iss variable ki value ki jagah isski actual value nhi aayegi, Balke 'undefined' aayega, Kuch iss tarha:
+// For example, The JIT found this variable firstName, This variable then gets memory for storage, And in that memory "Sadaan" will not be it's value, Initially it will be undefined.
 
 firstName = undefined;
 
 // 2. Actual Execution
 
-/* First time scanning hogi jismein let, const aur var variable ko memory allocate hogi aur unki value ki jagah undefined aajayega, Second time scanning, Yaani main execution ke time per iss defined ki jagah actual value place hogi. */
+/*In first execution, The scanning was done, Where each variable got memory for its value, and instead of their actual value undefined got stored, After all that second execution will start where each variable gets its actual value as 'value', instead of undefined, Unless the actual value of a variable is undefined. */
 
 firstName = "Sadaan";
-
-//  Valid and Un-Valid
-
-//1. Valid
-
-console.log(yoyo);
-
-var yoyo = "Honey Singh";
-
-//2. Unvalid
-
-console.log(itsYourBoy);
-
-let itsYourBoy = "Badshah";
-
-/* let ke case mein agar hum 'console.log(itsYourBoy)' karenge tu hamay error milayga, Kyuke javascript mein ye changes laye gaye thi ke, Jis variable ki value undefined hain aap usse print nhi karwa sakhte hain. */
-
-

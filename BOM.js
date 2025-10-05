@@ -1,13 +1,5 @@
-
 // to go somewhere on the same website
 window.location.href = "index.html";
-
-
-
-
-
-
-
 
 
 
@@ -18,20 +10,8 @@ window.location.href = "https://google.com";
 
 
 
-
-
-
-
-
-
 // to reload the page 
 window.location.reload();
-
-
-
-
-
-
 
 
 
@@ -46,24 +26,8 @@ window.history.back();
 
 
 
-
-
-
-
-
-
 // ye aik tab aage le jayega
 window.history.forward();
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -88,18 +52,9 @@ window.outerHeight;
 
 
 
-
-
-
-
-
-
-
-
 // outerWidth
 
 window.outerWidth;
-
 
 
 
@@ -114,27 +69,8 @@ window.innerHeight;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 // Hamari poori screen ki width
 window.innerWidth;
-
-
-
-
-
-
-
-
 
 
 
@@ -143,14 +79,6 @@ window.innerWidth;
 // open(), It works same like the href property
 
 window.open("https://google.com", "Sadaan Khan", "resizable")
-
-
-
-
-
-
-
-
 
 
 
@@ -166,22 +94,11 @@ window.close(); //   ^
 
 
 
-
-
-
 // resizeTo() and moveTo()
 
 window.open("https://www.youtube.com", "Youtube", "resizable");
 window.resizeTo(500, 300);
 window.moveTo(500, 200);
-
-
-
-
-
-
-
-
 
 
 
@@ -196,10 +113,6 @@ window.scroll({
     behavior: "smooth" 
 
 })
-
-
-
-
 
 
 
