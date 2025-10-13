@@ -2,6 +2,13 @@
 
 // It is also a better to assign values to multiple variables at once
 
+let [h,j, ...restElements] = [11,12,13,14,15];
+console.log(h);
+console.log(j);
+console.log(restElements);
+
+/*Here h and j will get the initial values of the array like h = 11, j = 12, While restElements will have the all the remaining values of the array, Excluding the '11' and '12'. */
+
 let [science, maths, english] = [87,76,92];
 console.log(science);
 console.log(maths);
