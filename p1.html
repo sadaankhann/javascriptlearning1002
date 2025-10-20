@@ -1,55 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .grid{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .gridB{
+
+            height: 100px; width: 100px;
+            border: 1px solid black;
+
+        }
+    </style>
 </head>
-
 <body>
+    <div class="grid">
+        <div class="gridB grid-1">1</div>        
+        <div class="gridB grid-2">2</div>        
+        <div class="gridB grid-3">3</div>        
+        <div class="gridB grid-4">4</div>        
+    </div>
     <script>
-        let listOfUsers = ["Sadaan Khan", "Waqar Khan", "Saqib Khan"];
-        let askUser = prompt("Enter the value you wanna search: ");
-
-        let officialList = listOfUsers.toString().toLowerCase().replace(/\s+/g, "")
-        let officialUser = askUser.toLowerCase().replace(/\s+/g, "");
-
-        function getUserData() {
-
-            return new Promise((ressolve, reject) => {
-                setTimeout(() => {
-
-                    if (officialList.includes(officialUser)) {
-                        ressolve("Yes, A user exist by this name!");
-                    }
-                    else {
-                        reject("No, the user is not found!");
-                    }
-
-                }, 3000);
-
-            })
-
-        }
-
-        async function performingCalculationOnUser() {
-
-            try {
-                let userData = await getUserData();
-                console.log(userData);
-            } catch (error) {
-
-                console.log(error);
-
-            }
-
-
-
-        }
-
-        performingCalculationOnUser();
+        const gridAll = document.querySelectorAll(".grid");
+        for(l)
     </script>
 </body>
-
 </html>
