@@ -1,3 +1,9 @@
+const gameTurnSound = document.querySelector(".turnSound");
+const gameEndSound = document.querySelector(".gameEndSound");
+const playerValue = document.querySelector(".playerValue");
+const computerValue = document.querySelector(".computerValue");
+const tieValue = document.querySelector(".tieValue");
+
 let turn_flag = false;
 let flag = 0;
 const result_button = document.querySelector(".resultText");
@@ -16,15 +22,64 @@ const grid = [grid_1, grid_2, grid_3, grid_4, grid_5, grid_6, grid_7, grid_8];
 
 function removeAllClickListeners() {
 
-    grid_box.forEach(e => e.replaceWith(e.cloneNode(true)));
+    grid_box.forEach(e => e.style.pointerEvents = "none");
 
 }
 
+function enableClickListeners() {
+
+    grid_box.forEach(e => e.style.pointerEvents = "auto");
+
+}
+
+async function flicking() {
+
+    let flickInterval;
+
+    clearInterval(flickInterval);
+
+    setTimeout(() => {
+
+        flickInterval = setInterval(() => {
+
+            grid_box.forEach(e => {
+
+                e.classList.toggle("border-none");
+
+            })
+
+        }, 200)
+
+    }, 600)
+
+    setTimeout(() => {
+        clearInterval(flickInterval);
+        grid_box.forEach(e => e.classList.remove("border-none"));
+        reset();
+    }, 2600);
+
+    function reset() {
+        flag = 0; turn_flag = false;
+        grid_box.forEach(e => e.textContent = "");
+        enableClickListeners();
+    }
+
+}
+
+
 function checking() {
 
+    let marker = true;
+
     if (flag >= 9) {
-        result_button.textContent = "Draw";
+
+        gameEndSound.play();
+        flicking();
+        let tieCurrentValue = parseInt(tieValue.textContent);
+        tieCurrentValue++;
+        tieValue.textContent = tieCurrentValue;
         removeAllClickListeners();
+        return turn_flag;
     }
 
     for (let i = 0; i < grid.length; i++) {
@@ -40,80 +95,90 @@ function checking() {
 
         if ((arr_2[0] == arr_2[1] && arr_2[1] == arr_2[2]) && (arr_2[0] && arr_2[1] && arr_2[2] != "")) {
 
-            result_button.textContent = `${arr_2[0]} wins!`;
+            let winner = arr_2[0];
+            if (winner == "X") {
+
+                gameEndSound.play();
+                flicking();
+                let playerCurrentValue = parseInt(playerValue.textContent);
+                playerCurrentValue++;
+                playerValue.textContent = playerCurrentValue;
+                removeAllClickListeners();
+                return turn_flag;
+            }
+            gameEndSound.play();
+            flicking();
+            let computerCurrentValue = parseInt(computerValue.textContent);
+            computerCurrentValue++;
+            computerValue.textContent = computerCurrentValue;
             removeAllClickListeners();
+            marker = false;
+            return turn_flag;
 
         }
 
+
+    }
+
+    if (marker) {
+        turn_flag = true;
+        return turn_flag;
     }
 
 }
 
 
-function bot(turn_flag, dabba_1) {
+function bot(dabba_1) {
 
     setTimeout(() => {
 
-        let marker = true;
+        const grid = [grid_1, grid_2, grid_3, grid_4, grid_5, grid_6, grid_7, grid_8];
+        for (let i = 0; i < grid.length; i++) {
 
-        if (turn_flag) {
+            let xs = 0;
+            let os = 0;
+            let ss = 0;
 
-            const grid = [grid_1, grid_2, grid_3, grid_4, grid_5, grid_6, grid_7, grid_8];
-            for (let i = 0; i < grid.length; i++) {
+            for (let e of grid[i]) {
 
-                let xs = 0;
-                let os = 0;
-                let ss = 0;
+                if (e.textContent == "X") {
+                    xs++;
+                }
+                else if (e.textContent == "O") {
+                    os++;
+                }
+                else {
+                    ss++;
+                }
+            }
+
+            if ((xs == 2 && ss == 1) || (os == 2 && ss == 1)) {
 
                 for (let e of grid[i]) {
 
-                    if (e.textContent == "X") {
-                        xs++;
+                    if (e.textContent != "") {
+
+                        continue;
+
                     }
-                    else if (e.textContent == "O") {
-                        os++;
-                    }
+
                     else {
-                        ss++;
-                    }
-                }
 
-                if ((xs == 2 && ss == 1) || (os == 2 && ss == 1)) {
-
-                    for (let e of grid[i]) {
-
-                        if (e.textContent != "") {
-
-                            continue;
-
-                        }
-
-                        if (!marker) {
-                            break;
-                        }
-
-                        else {
-
-                            e.textContent = "O";
-                            marker = false;
-                            flag++;
-                            checking();
-
-                        }
-
+                        e.textContent = "O";
+                        gameTurnSound.play();
+                        e.classList.add("active");
+                        flag++;
+                        checking();
+                        turn_flag = false;
+                        return;
 
                     }
 
-                }
 
+                }
 
             }
 
-        }
-
-        if (marker != true) {
-
-            return;
 
         }
 
@@ -132,12 +197,17 @@ function bot(turn_flag, dabba_1) {
                         randomMove(arr);
                     }
                     return;
+
                 }
 
                 e1.textContent = "O";
+                gameTurnSound.play();
+                e1.classList.add("active");
+
                 checker = true;
                 flag++;
                 checking();
+                turn_flag = false;
                 return;
 
             }
@@ -162,17 +232,22 @@ function bot(turn_flag, dabba_1) {
                         cell_space_checker++;
                         continue;
                     }
+
+                    if (cell_space_checker == 3) {
+                        arr_.splice(random_index, 1);
+                        cell_space_checker = 0;
+                        randomMove(arr_);
+
+                    }
+
                     e.textContent = "O";
+                    gameTurnSound.play();
+                    e.classList.add("active");
                     check_2 = true;
                     flag++;
                     checking();
-                    break;
-                }
-
-                if (cell_space_checker == 3) {
-                    arr_.splice(random_index, 1);
-                    cell_space_checker = 0;
-                    randomMove(arr_);
+                    turn_flag = false;
+                    return;
 
                 }
 
@@ -185,86 +260,26 @@ function bot(turn_flag, dabba_1) {
 
 }
 
+function userMove(dabba, e) {
 
-grid_1.forEach(e => {
+    if (turn_flag) { return; }
 
-    e.addEventListener("click", () => {
+    if (e.textContent != "") {
+        return;
+    }
 
+    e.textContent = "X";
+    gameTurnSound.play();
+    e.classList.add("active");
+    flag++;
+    let cc = checking();
+    if (cc) { bot(dabba) };
 
-        if (e.textContent != "") {
-            return;
-        }
+}
 
-        e.textContent = "X";
-        flag++;
-        checking();
-        turn_flag = true;
-        bot(turn_flag, grid_1);
-
-
-
+[grid_1, grid_2, grid_3].forEach(dabba => {
+    dabba.forEach(e => {
+        e.addEventListener("click", () => { userMove(dabba, e); });
     })
-
 })
 
-grid_2.forEach(e => {
-
-    e.addEventListener("click", () => {
-
-        if (flag >= 9) {
-            result_button.textContent = "Draw";
-            grid_box.forEach(e => {
-                e.addEventListener("click", () => {
-                    return;
-                })
-            })
-        }
-
-
-        if (e.textContent != "") {
-            return;
-        }
-
-        e.textContent = "X";
-        flag++;
-        checking();
-        turn_flag = true;
-        bot(turn_flag, grid_2);
-
-
-
-    })
-
-})
-
-
-grid_3.forEach(e => {
-
-    e.addEventListener("click", () => {
-
-
-        if (flag >= 9) {
-            result_button.textContent = "Draw";
-            grid_box.forEach(e => {
-                e.addEventListener("click", () => {
-                    return;
-                })
-            })
-        }
-
-
-        if (e.textContent != "") {
-            return;
-        }
-
-        e.textContent = "X";
-        flag++;
-        checking();
-        turn_flag = true;
-        bot(turn_flag, grid_3);
-
-
-
-    })
-
-})

@@ -6,34 +6,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle&display=swap');
+
+        .lilita-one-regular {
+            font-family: "Lilita One", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .bbh-sans-bartle-regular {
+            font-family: "BBH Sans Bartle", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+
+
+        body {
+            min-height: 100vh;
+            height: auto;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         * {
             padding: 0px;
             margin: 0px;
         }
 
         .section-1 {
+
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
         }
 
         .grid {
+
             display: grid;
             grid-template-columns: repeat(3, 100px);
             gap: 5;
         }
 
         .grid-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: white;
+            font-size: 34px;
             height: 100px;
             width: 100px;
-            border: 1px solid black;
+            border: 5px solid white;
+            transition: all 0.1s ease;
+        }
+
+        .active {
+            font-size: 2.5rem;
+        }
+
+        .border-none {
+            border-color: black;
+        }
+
+        .resultText {
+            color: white;
+        }
+
+        .resultButtons {
+    
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            height: 50px;
+            width: 100%;
+            font-size: 0.8rem;
+            color:  white;
+            text-align: center;
+            margin-top: 35px;
+        }
+
+
+
+        .column-1,
+        .column-3 {
+            border-left: none;
+        }
+
+        .column-3,
+        .column-1 {
+            border-right: none;
+        }
+
+        .row-3 {
+            border-bottom: none;
+        }
+
+        .row-1,
+        .row-3,
+        .row-2 {
+            border-top: none;
         }
     </style>
 </head>
 
 <body>
     <section class="section-1">
-        <div class="grid">
+        <audio class="turnSound" src="turnSound.wav"></audio>
+        <audio class="gameEndSound" src="gameEnd.wav"></audio>
+        <div class="grid lilita-one-regular">
             <div class="grid-box row-1 column-1 diagonal-1 grid-1"></div>
             <div class="grid-box row-1 column-2 grid-2"></div>
             <div class="grid-box row-1 column-3 diagonal-2 grid-3"></div>
@@ -44,12 +129,23 @@
             <div class="grid-box row-3 column-2 grid-8"></div>
             <div class="grid-box row-3 column-3 diagonal-1 grid-9"></div>
         </div>
-        <div class="result">
-            <p class="resultText">Result</p>
-        </div>
+        <section class="resultButtons bbh-sans-bartle-regular">
+            <div class="result">
+                <p class="player">PLAYER - (X)</p>
+                <p class="playerValue">0</p>
+            </div>
+            <div class="result">
+                <p class="tie">TIE</p>
+                <p class="tieValue">0</p>
+            </div>
+            <div class="result">
+                <p class="computer">COMPUTER - (O)</p>
+                <p class="computerValue">0</p>
+            </div>
+        </section>
     </section>
 
-    <script src="ticTacToe-Beta-Test.js"></script>
+    <script src="ticTacToeBot.js"></script>
 </body>
 
 </html>
